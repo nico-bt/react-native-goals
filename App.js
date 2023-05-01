@@ -14,6 +14,11 @@ export default function App() {
     ])
   }
 
+  const deleteGoalHandler = (id) => {
+    const filteredGoals = goals.filter((goal) => goal.key !== id)
+    setGoals(filteredGoals)
+  }
+
   return (
     <View style={styles.container}>
       <GoalInput addGoalHandler={addGoalHandler} />
@@ -23,7 +28,13 @@ export default function App() {
           // Usa .key automáticamente tomada de la data que pasamos. Si no usar keyExtractor
           data={goals}
           renderItem={(itemData) => {
-            return <GoalItem text={itemData.item.text} />
+            return (
+              <GoalItem
+                text={itemData.item.text}
+                deleteGoal={deleteGoalHandler}
+                id={itemData.item.key}
+              />
+            )
           }}
         />
       </View>
